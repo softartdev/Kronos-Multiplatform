@@ -22,6 +22,7 @@ kotlin {
         framework {
             baseName = "kronos"
         }
+        pod("Kronos", "~> 4.2")
     }
 
     sourceSets {
@@ -31,7 +32,17 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting
+        val jvmMain by getting {
+            dependencies {
+                api("com.lyft.kronos:kronos-java:0.0.1-alpha11")
+            }
+        }
+        val jvmTest by getting
+        val androidMain by getting {
+            dependencies {
+                api("com.lyft.kronos:kronos-android:0.0.1-alpha11")
+            }
+        }
         val androidUnitTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
