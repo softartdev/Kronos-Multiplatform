@@ -1,0 +1,16 @@
+PODS:
+  - sampleApp (1.0.0)
+
+DEPENDENCIES:
+  - sampleApp (from `../sampleApp`)
+
+EXTERNAL SOURCES:
+  sampleApp:
+    :path: "../sampleApp"
+
+SPEC CHECKSUMS:
+  sampleApp: 6e28c1a5d33f2ff537dfe1cb36fbfea37c62e266
+
+PODFILE CHECKSUM: b85c23e81afce349a8da7e6f2d69ba6ae084aa4b
+
+COCOAPODS: 1.11.3
