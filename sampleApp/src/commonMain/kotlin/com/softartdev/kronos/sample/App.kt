@@ -1,27 +1,35 @@
 package com.softartdev.kronos.sample
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.softartdev.kronos.Greeting
+import com.softartdev.kronos.NetworkClock
 
 @Composable
 internal fun App() = AppTheme {
+    var ntpTimeMs by remember { mutableStateOf(NetworkClock.getCurrentNtpTimeMs()) }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
+        Text(text = "Network time millis: $ntpTimeMs")
         Button(
-            onClick = { openUrl("https://github.com/terrakok") }
+            onClick = { ntpTimeMs = NetworkClock.getCurrentNtpTimeMs() }
+        ) {
+            Text(text = "Refresh network time millis")
+        }
+        Button(
+            onClick = { openUrl("https://github.com/softartdev/Kronos-Multiplatform") }
         ) {
             Text("Open github")
         }
-        Spacer(modifier = Modifier.height(32.dp))
         Text(text = Greeting().greet())
     }
 }
