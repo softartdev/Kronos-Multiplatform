@@ -10,6 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.softartdev.kronos.Greeting
 import com.softartdev.kronos.NetworkClock
+import io.github.aakira.napier.Napier
+import kotlinx.datetime.Clock
 
 @Composable
 internal fun App() = AppTheme {
@@ -21,7 +23,7 @@ internal fun App() = AppTheme {
     ) {
         Text(text = "Network time millis: $ntpTimeMs")
         Button(
-            onClick = { ntpTimeMs = NetworkClock.getCurrentNtpTimeMs() }
+            onClick = { ntpTimeMs = logNtpTimeMs() }
         ) {
             Text(text = "Refresh network time millis")
         }
@@ -32,6 +34,16 @@ internal fun App() = AppTheme {
         }
         Text(text = Greeting().greet())
     }
+}
+
+private fun logNtpTimeMs(): Long? {
+    val networkTimeMs = NetworkClock.getCurrentNtpTimeMs()
+    Napier.d(tag = "⌚️", message = "Network time millis: $networkTimeMs")
+    val systemTimeMs = Clock.System.now().toEpochMilliseconds()
+    Napier.d(tag = "⌚️", message = "System time millis: $systemTimeMs")
+    val diff = networkTimeMs?.minus(systemTimeMs)
+    Napier.d(tag = "⌚️", message = "Diff: $diff")
+    return networkTimeMs
 }
 
 internal expect fun openUrl(url: String?)

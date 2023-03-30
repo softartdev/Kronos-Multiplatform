@@ -4,14 +4,19 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.softartdev.kronos.NetworkClock
 import com.softartdev.kronos.sample.App
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 
-fun main() = application {
+fun main() {
+    Napier.base(DebugAntilog())
 
     NetworkClock.sync()
 
-    Window(
-        title = "Kronos Multiplatform",
-        state = rememberWindowState(width = 600.dp, height = 400.dp),
-        onCloseRequest = ::exitApplication,
-    ) { App() }
+    application {
+        Window(
+            title = "Kronos Multiplatform",
+            state = rememberWindowState(width = 600.dp, height = 400.dp),
+            onCloseRequest = ::exitApplication,
+        ) { App() }
+    }
 }
