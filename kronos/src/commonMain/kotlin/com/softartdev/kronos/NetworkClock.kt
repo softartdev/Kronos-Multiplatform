@@ -1,8 +1,16 @@
 package com.softartdev.kronos
 
-expect object NetworkClock {
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+
+interface NetworkClock : Clock {
     /**
      * @return the current time in milliseconds, or null if no ntp sync has occurred.
      */
     fun getCurrentNtpTimeMs(): Long?
+
+    /**
+     * Returns the [Instant] corresponding to the current time, according to this clock.
+     */
+    override fun now(): Instant = getCurrentNtpTimeMs()!!.let(Instant::fromEpochMilliseconds)
 }

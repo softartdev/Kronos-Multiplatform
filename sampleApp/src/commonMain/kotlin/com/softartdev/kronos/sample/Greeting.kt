@@ -1,4 +1,4 @@
-package com.softartdev.kronos
+package com.softartdev.kronos.sample
 
 class Greeting {
     private val platform: Platform = getPlatform()

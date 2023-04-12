@@ -2,15 +2,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.softartdev.kronos.NetworkClock
+import com.softartdev.kronos.Network
 import com.softartdev.kronos.sample.App
+import com.softartdev.kronos.sync
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
+import kotlinx.datetime.Clock
 
 fun main() {
     Napier.base(DebugAntilog())
 
-    NetworkClock.sync()
+    Clock.Network.sync()
 
     application {
         Window(

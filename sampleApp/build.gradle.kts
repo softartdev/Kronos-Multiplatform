@@ -1,30 +1,41 @@
+@file:Suppress("UnstableApiUsage")
+
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
-    kotlin("native.cocoapods")
-    id("com.android.application")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.cocoapods)
+    alias(libs.plugins.android.application)
 }
+group = "com.softartdev.kronos.sample"
 
 kotlin {
-    android()
-
+    jvmToolchain(11)
     jvm("desktop")
-
+    android {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "11"
+            }
+        }
+    }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
 
     cocoapods {
-        version = "1.0.0"
         summary = "Compose application framework"
         homepage = "empty"
+        version = "1.0.0"
+        ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "ComposeApp"
             isStatic = true
         }
+        extraSpecAttributes["resources"] = "['src/commonMain/resources/**']"
     }
 
     sourceSets {
@@ -34,27 +45,21 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                implementation("io.github.aakira:napier:2.6.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0-Beta")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                @OptIn(ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
+                implementation(libs.napier)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
-
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
-
         val androidMain by getting {
             dependencies {
-                implementation("androidx.appcompat:appcompat:1.6.1")
-                implementation("androidx.activity:activity-compose:1.7.0")
-                implementation("androidx.compose.ui:ui-tooling:1.4.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0-Beta")
+                implementation(libs.androidx.appcompat)
+                implementation(libs.androidx.activityCompose)
+                implementation(libs.compose.uitooling)
+                implementation(libs.kotlinx.coroutines.android)
             }
         }
-
+        val androidUnitTest by getting
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.common)
@@ -62,7 +67,6 @@ kotlin {
                 implementation(compose.preview)
             }
         }
-
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -73,16 +77,6 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
             }
-        }
-
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
         }
     }
 }
@@ -102,6 +96,7 @@ android {
     sourceSets["main"].apply {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDirs("src/androidMain/resources")
+        resources.srcDirs("src/commonMain/resources")
     }
     kotlin {
         jvmToolchain(11)

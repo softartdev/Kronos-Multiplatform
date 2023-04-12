@@ -18,7 +18,7 @@ object JvmClockFactory {
         maxNtpResponseTimeMs: Long = DefaultParam.MAX_NTP_RESPONSE_TIME_MS
     ): KronosClock = ClockFactory.createKronosClock(
         localClock = createDeviceClock(),
-        syncResponseCache = JvmPreferenceSyncResponseCache(),
+        syncResponseCache = JvmPreferenceSyncResponseCache,
         syncListener = syncListener,
         ntpHosts = ntpHosts,
         requestTimeoutMs = requestTimeoutMs,

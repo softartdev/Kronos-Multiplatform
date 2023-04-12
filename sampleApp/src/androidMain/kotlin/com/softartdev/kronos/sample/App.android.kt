@@ -6,9 +6,10 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.softartdev.kronos.NetworkClock
+import com.softartdev.kronos.*
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
+import kotlinx.datetime.Clock
 
 class AndroidApp : Application() {
     companion object {
@@ -19,7 +20,7 @@ class AndroidApp : Application() {
         super.onCreate()
         INSTANCE = this
         Napier.base(DebugAntilog())
-        NetworkClock.sync(applicationContext)
+        Clock.Network.sync(applicationContext)
     }
 }
 
@@ -38,4 +39,14 @@ internal actual fun openUrl(url: String?) {
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     }
     AndroidApp.INSTANCE.startActivity(intent)
+}
+
+internal actual fun clickSync() = Clock.Network.sync(context = AndroidApp.INSTANCE)
+
+internal actual fun clickBlockingSync() {
+    Clock.Network.blockingSync(context = AndroidApp.INSTANCE)
+}
+
+internal actual suspend fun clickAwaitSync() {
+    Clock.Network.awaitSync(ctx = AndroidApp.INSTANCE)
 }

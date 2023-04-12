@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("com.android.library")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.swift.klib)
 }
 group = "com.softartdev.kronos"
 version = "0.0.1"
@@ -10,40 +10,48 @@ kotlin {
     jvmToolchain(11)
     jvm()
     android()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
 
-    cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
-        version = "1.0"
-        ios.deploymentTarget = "14.1"
-        framework {
-            baseName = "kronos"
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach {
+        it.compilations {
+            val main by getting {
+                cinterops {
+                    create("KronosMultiplatform")
+                }
+            }
         }
-        pod("Kronos", "~> 4.2")
     }
-
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                api(libs.kotlinx.datetime)
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation(libs.kotlinx.coroutines.test)
             }
         }
         val jvmMain by getting {
             dependencies {
-                api("com.lyft.kronos:kronos-java:0.0.1-alpha11")
+                api(libs.lyft.kronos.java)
             }
         }
         val jvmTest by getting
         val androidMain by getting {
             dependencies {
-                api("com.lyft.kronos:kronos-android:0.0.1-alpha11")
+                api(libs.lyft.kronos.android)
             }
         }
-        val androidUnitTest by getting
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(libs.androidx.test)
+            }
+        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -70,10 +78,16 @@ android {
     compileSdk = 33
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+swiftklib {
+    create("KronosMultiplatform") {
+        path = file("native/Kronos")
+        packageName("com.softartdev.kronos")
     }
 }

@@ -4,7 +4,11 @@ import com.lyft.kronos.SyncResponseCache
 import com.lyft.kronos.internal.Constants.TIME_UNAVAILABLE
 import java.util.prefs.Preferences
 
-class JvmPreferenceSyncResponseCache : SyncResponseCache {
+object JvmPreferenceSyncResponseCache : SyncResponseCache {
+    private const val KEY_CURRENT_TIME = "com.lyft.kronos.cached_current_time"
+    private const val KEY_ELAPSED_TIME = "com.lyft.kronos.cached_elapsed_time"
+    private const val KEY_OFFSET = "com.lyft.kronos.cached_offset"
+
     private val preferences: Preferences = Preferences.userNodeForPackage(JvmPreferenceSyncResponseCache::class.java)
 
     override var currentTime: Long
@@ -18,10 +22,4 @@ class JvmPreferenceSyncResponseCache : SyncResponseCache {
         set(value) = preferences.putLong(KEY_OFFSET, value)
 
     override fun clear() = preferences.clear()
-
-    companion object {
-        internal const val KEY_CURRENT_TIME = "com.lyft.kronos.cached_current_time"
-        internal const val KEY_ELAPSED_TIME = "com.lyft.kronos.cached_elapsed_time"
-        internal const val KEY_OFFSET = "com.lyft.kronos.cached_offset"
-    }
 }

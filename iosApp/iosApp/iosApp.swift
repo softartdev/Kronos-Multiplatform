@@ -6,7 +6,7 @@ import ComposeApp
 struct iosApp: App {
     
     init() {
-        MainKt.debugBuild()
+        MainKt.appInit()
     }
     
     var body: some Scene {

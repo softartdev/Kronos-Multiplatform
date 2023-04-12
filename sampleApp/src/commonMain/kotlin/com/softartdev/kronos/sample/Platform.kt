@@ -1,4 +1,4 @@
-package com.softartdev.kronos
+package com.softartdev.kronos.sample
 
 interface Platform {
     val name: String

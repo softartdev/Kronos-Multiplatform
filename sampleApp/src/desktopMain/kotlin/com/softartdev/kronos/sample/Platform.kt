@@ -1,4 +1,4 @@
-package com.softartdev.kronos
+package com.softartdev.kronos.sample
 
 class JvmPlatform : Platform {
     override val name: String = "JVM ${System.getProperty("java.version")}"
