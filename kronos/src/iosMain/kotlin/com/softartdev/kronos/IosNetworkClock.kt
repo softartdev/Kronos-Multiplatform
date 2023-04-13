@@ -23,7 +23,7 @@ object IosNetworkClock : NetworkClock {
     }
 
     override fun getCurrentNtpTimeMs(): Long? {
-        val nsDate: NSDate? = Kronos.now()
-        return nsDate?.timeIntervalSince1970?.toLong()
+        val nsDate: NSDate = Kronos.now() ?: return null
+        return nsDate.timeIntervalSince1970.toLong() * 1000
     }
 }

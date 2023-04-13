@@ -12,5 +12,9 @@ interface NetworkClock : Clock {
     /**
      * Returns the [Instant] corresponding to the current time, according to this clock.
      */
-    override fun now(): Instant = getCurrentNtpTimeMs()!!.let(Instant::fromEpochMilliseconds)
+    override fun now(): Instant {
+        val currentNtpTimeMs = getCurrentNtpTimeMs()
+        requireNotNull(currentNtpTimeMs) { "No ntp sync has occurred" }
+        return Instant.fromEpochMilliseconds(currentNtpTimeMs)
+    }
 }

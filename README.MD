@@ -1,24 +1,56 @@
 # Kronos Multiplatform Library
+Development in progress 🛠
 
-Development in progress
+Kotlin Multiplatform library for time synchronization. 
+Extension for [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) library.
+Supported platforms:
+- Android
+- iOS
+- Desktop JVM (MacOS, Linux, Windows)
+## Usage
+### [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) extension
+Use `Clock.Network.now()` to get the current network time. 
+This can be used in conjunction with the built-in `Clock.System.now()` method.
+```kotlin
+val networkTime: Instant = Clock.Network.now()
+val systemTime: Instant = Clock.System.now()
+val diff: Duration = networkTime - systemTime
+```
+### Synchronization
+When running the application, it is necessary to synchronize the time with the network using the platform code function:
+```kotlin
+Clock.Network.sync()
+```
+For example, on Android:
+```kotlin
+class App : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        Clock.Network.sync(applicationContext)
+    }
+}
+```
+### Installation
+The latest release is available on [Maven Central](https://repo1.maven.org/maven2/io/github/softartdev/kronos/).
+1. Add the Maven Central repository if it is not already there:
+```kotlin
+repositories {
+    mavenCentral()
+}
+```
+2. In multiplatform projects, add a dependency to the commonMain source set dependencies
+```kotlin
+commonMain {
+    dependencies {
+        implementation("io.github.softartdev:kronos:$latestVersion")
+    }
+}
+```
+## Implementation
+Main common interface implemented with using:
+- [lyft/Kronos](https://github.com/lyft/Kronos-Android) for Java & Android
+- [MobileNativeFoundation/Kronos](https://github.com/MobileNativeFoundation/Kronos) for iOS
 
-## Before running!
- - check your system with (KDoctor)[https://github.com/Kotlin/kdoctor]
- - add `local.properties` file to the project root and set a path to Android SDK there
- - run `./gradlew podInstall` in the project root
-
-### Android
-To run the application on android device/emulator:  
- - open project in Android Studio and run imported android run configuration
-
-To build the application bundle:
- - run `./gradlew :composeApp:assembleDebug`
- - find `.apk` file in `composeApp/build/outputs/apk/debug/composeApp-debug.apk`
-
-### Desktop
-Run the desktop application: `./gradlew :composeApp:run`
-
-### iOS
-To run the application on iPhone device/simulator:
- - Open `iosApp/iosApp.xcworkspace` in Xcode and run standard configuration
- - Or use (Kotlin Multiplatform Mobile plugin)[https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile] for Android Studio
+The project is assembled and checked thanks to:
+- [Swift Klib Gradle Plugin](https://github.com/ttypic/swift-klib-plugin) including Swift source files in KMM shared module
+- [Compose Multiplatform, by JetBrains](https://github.com/JetBrains/compose-jb) for UI samples

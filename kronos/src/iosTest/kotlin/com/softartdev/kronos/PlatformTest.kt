@@ -19,4 +19,18 @@ class PlatformTest {
         }
         assertNotNull(Clock.Network.getCurrentNtpTimeMs())
     }
+
+    @Ignore
+    @Test
+    fun awaitSyncTest() = runTest {
+        val currentNtpTimeMs = Clock.Network.getCurrentNtpTimeMs()
+        println("⏺️ before sync: $currentNtpTimeMs")
+        assertNull(currentNtpTimeMs)
+
+        Clock.Network.awaitSync()
+
+        val instance = Clock.Network.now()
+        println("⏺️ after sync: $instance")
+        assertNotNull(instance)
+    }
 }

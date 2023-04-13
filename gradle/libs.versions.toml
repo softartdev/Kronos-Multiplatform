@@ -3,7 +3,7 @@
 lyft-kronos = "0.0.1-alpha11"
 kotlin = "1.8.20"
 agp = "7.4.2"
-compose = "1.4.0-rc03"
+compose = "1.4.0"
 androidx-appcompat = "1.6.1"
 androidx-activityCompose = "1.7.0"
 androidx-test = "1.5.0"
