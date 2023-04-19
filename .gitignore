@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /local.properties
+/8257B447.gpg
 /.idea
 .DS_Store
 build

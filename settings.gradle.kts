@@ -1,4 +1,5 @@
 rootProject.name = "Kronos Multiplatform"
+includeBuild("convention-plugins")
 include(":kronos")
 include(":sampleApp")
 

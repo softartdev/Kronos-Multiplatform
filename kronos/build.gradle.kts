@@ -2,15 +2,17 @@ plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.swift.klib)
+    id("convention.publication")
 }
-group = "com.softartdev.kronos"
-version = "0.0.1"
+group = "io.github.softartdev"
+version = libs.versions.kronos.get()
 
 kotlin {
     jvmToolchain(11)
     jvm()
-    android()
-
+    android {
+        publishLibraryVariants("release", "debug")
+    }
     listOf(
         iosX64(),
         iosArm64(),
@@ -90,4 +92,8 @@ swiftklib {
         path = file("native/Kronos")
         packageName("com.softartdev.kronos")
     }
+}
+
+tasks.withType<PublishToMavenRepository>().configureEach {
+    dependsOn(tasks.withType<Sign>())
 }

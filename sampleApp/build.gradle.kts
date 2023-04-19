@@ -42,6 +42,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":kronos"))
+//                implementation(libs.kronos)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)

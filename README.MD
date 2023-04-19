@@ -18,16 +18,30 @@ val diff: Duration = networkTime - systemTime
 ```
 ### Synchronization
 When running the application, it is necessary to synchronize the time with the network using the platform code function:
-```kotlin
-Clock.Network.sync()
-```
-For example, on Android:
+- Android:
 ```kotlin
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
         Clock.Network.sync(applicationContext)
     }
+}
+```
+- iOS:
+```swift
+@main
+struct iosApp: App {
+    init() {
+        Clock.Network.sync()
+    }
+    var body: some Scene { ... }
+}
+```
+- Desktop JVM:
+```kotlin
+fun main() {
+    Clock.Network.sync()
+    ...
 }
 ```
 ### Installation
