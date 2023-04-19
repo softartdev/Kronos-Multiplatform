@@ -7,6 +7,7 @@ import java.util.*
 plugins {
     `maven-publish`
     signing
+    id("io.codearte.nexus-staging")
 }
 // Stub secrets to let the project sync and build without the publication values set up
 ext["signing.keyId"] = null
@@ -83,4 +84,12 @@ publishing {
 // Signing artifacts. Signing.* extra properties values will be used
 signing {
     sign(publishing.publications)
+}
+
+nexusStaging {
+    serverUrl = "https://s01.oss.sonatype.org/service/local/"
+    packageGroup = "io.github.softartdev"
+    stagingProfileId = getExtraString("sonatypeStagingProfileId")
+    username = getExtraString("ossrhUsername")
+    password = getExtraString("ossrhPassword")
 }
