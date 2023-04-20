@@ -63,7 +63,12 @@ internal expect suspend fun clickAwaitSync()
 private fun calcDiffDuration(): Duration {
     val sysInstant = Clock.System.now()
     Napier.d(tag = "⌚️", message = "System time: $sysInstant")
-    val netInstant = Clock.Network.now()
+    val netInstant = try {
+        Clock.Network.now()
+    } catch (exception: IllegalArgumentException) {
+        Napier.e(tag = "⌚️", message = exception.message ?: "Network time error")
+        sysInstant
+    }
     Napier.d(tag = "⌚️", message = "Network time: $netInstant")
     val diff: Duration = netInstant - sysInstant
     Napier.d(tag = "⌚️", message = "Diff: $diff")
