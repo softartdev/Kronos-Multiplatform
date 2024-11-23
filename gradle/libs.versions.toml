@@ -1,17 +1,17 @@
 [versions]
 kronos = "0.0.1"
 lyft-kronos = "0.0.1-alpha11"
-kotlin = "1.9.0"
-agp = "8.1.0"
-compose = "1.5.0-rc01"
-androidx-appcompat = "1.6.1"
-androidx-activityCompose = "1.7.2"
-androidx-test = "1.5.0"
-compose-uitooling = "1.5.0"
-napier = "2.6.1"
-kotlinx-coroutines = "1.7.3"
-kotlinx-datetime = "0.4.0"
-swift-klib = "0.2.1"
+kotlin = "2.0.21"
+agp = "8.7.2"
+compose = "1.7.1"
+androidx-appcompat = "1.7.0"
+androidx-activityCompose = "1.9.3"
+androidx-test = "1.6.1"
+compose-uitooling = "1.7.5"
+napier = "2.7.1"
+kotlinx-coroutines = "1.9.0"
+kotlinx-datetime = "0.6.1"
+swift-klib = "0.6.4"
 
 [libraries]
 kronos = { module = "io.github.softartdev:kronos", version.ref = "kronos" }
@@ -30,6 +30,7 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
