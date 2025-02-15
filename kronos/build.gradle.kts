@@ -10,7 +10,7 @@ version = libs.versions.kronos.get()
 kotlin {
     jvmToolchain(11)
     jvm()
-    android {
+    androidTarget {
         publishLibraryVariants("release", "debug")
     }
     listOf(
@@ -77,9 +77,9 @@ kotlin {
 
 android {
     namespace = "com.softartdev.kronos"
-    compileSdk = 34
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 21
+        minSdk = libs.versions.minSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
