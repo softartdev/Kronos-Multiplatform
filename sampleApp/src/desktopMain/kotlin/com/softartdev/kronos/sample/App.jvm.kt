@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.softartdev.kronos.sample
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
@@ -5,9 +7,10 @@ import androidx.compose.runtime.Composable
 import com.softartdev.kronos.JvmNetworkClock
 import com.softartdev.kronos.Network
 import com.softartdev.kronos.sync
-import kotlinx.datetime.Clock
 import java.awt.Desktop
 import java.net.URI
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 internal actual fun openUrl(url: String?) {
     val uri = url?.let { URI.create(it) } ?: return

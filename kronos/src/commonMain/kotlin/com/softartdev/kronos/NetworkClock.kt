@@ -1,7 +1,10 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.softartdev.kronos
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 interface NetworkClock : Clock {
     /**
