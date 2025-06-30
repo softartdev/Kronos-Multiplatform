@@ -3,18 +3,27 @@
 ![Maven Central](https://img.shields.io/maven-central/v/io.github.softartdev/kronos)
 [![Build & Publish CI/CD](https://github.com/softartdev/Kronos-Multiplatform/actions/workflows/build_publish.yml/badge.svg)](https://github.com/softartdev/Kronos-Multiplatform/actions/workflows/build_publish.yml)
 
-Kotlin Multiplatform library for network time synchronization. It is an extension for the [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) library and supports the following platforms:
+Kotlin Multiplatform library for network time synchronization. It extends the [`kotlin.time`](https://kotlinlang.org/api/kotlin-time/) API and supports the following platforms:
 - Android
 - iOS
 - Desktop JVM (MacOS, Linux, Windows)
 ## Usage
-### kotlinx-datetime Extension
-The library [extends the main `Clock` interface](https://github.com/softartdev/Kronos-Multiplatform/blob/main/kronos/src/commonMain/kotlin/com/softartdev/kronos/ClockExt.kt) of the kotlinx-library. You can use the [Clock.Network](https://github.com/softartdev/Kronos-Multiplatform/blob/main/kronos/src/commonMain/kotlin/com/softartdev/kronos/NetworkClock.kt) class to retrieve the current network time, similar to using the built-in [Clock.System](https://github.com/Kotlin/kotlinx-datetime/blob/master/core/common/src/Clock.kt) instance.
+### `kotlin.time` Extension
+The library [extends the main `Clock` interface](https://github.com/softartdev/Kronos-Multiplatform/blob/main/kronos/src/commonMain/kotlin/com/softartdev/kronos/ClockExt.kt) from the standard library. You can use the [Clock.Network](https://github.com/softartdev/Kronos-Multiplatform/blob/main/kronos/src/commonMain/kotlin/com/softartdev/kronos/NetworkClock.kt) class to retrieve the current network time, similar to using the built-in `Clock.System` instance.
 ```kotlin
+import kotlin.time.Clock
+import kotlin.time.Instant
+import kotlin.time.Duration
 val networkTime: Instant = Clock.Network.now()
 val systemTime: Instant = Clock.System.now()
 val diff: Duration = networkTime - systemTime
 ```
+
+### `kotlinx-datetime` Deprecation
+Starting from `kotlinx-datetime` **0.7.0**, the `Clock` interface and `Instant` class were moved to the Kotlin standard library as `kotlin.time.Clock` and `kotlin.time.Instant`. The old types are now deprecated.
+
+If your project still relies on them, replace the `kotlinx.datetime.Clock` and `kotlinx.datetime.Instant` imports with the corresponding `kotlin.time` ones. No other code changes are required.
+
 ### Synchronization
 When running the application, it's necessary to synchronize the time with the network using the platform-specific code:
 - Android:
