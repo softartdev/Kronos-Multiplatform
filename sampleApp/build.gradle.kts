@@ -5,6 +5,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     alias(libs.plugins.multiplatform)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose)
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.android.application)
@@ -12,15 +13,9 @@ plugins {
 group = "com.softartdev.kronos.sample"
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(libs.versions.jdk.get().toInt())
     jvm("desktop")
-    android {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "11"
-            }
-        }
-    }
+    androidTarget()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -35,7 +30,6 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
         }
-        extraSpecAttributes["resources"] = "['src/commonMain/resources/**']"
     }
 
     sourceSets {
@@ -84,11 +78,11 @@ kotlin {
 
 android {
     namespace = "com.softartdev.kronos.sample"
-    compileSdk = 33
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 33
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
 
         applicationId = "com.softartdev.kronos.sample"
         versionCode = 1
@@ -100,13 +94,13 @@ android {
         resources.srcDirs("src/commonMain/resources")
     }
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(libs.versions.jdk.get().toInt())
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.jdk.get().toInt())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.jdk.get().toInt())
     }
-    packagingOptions {
+    packaging {
         resources.excludes.add("META-INF/**")
     }
 }

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.softartdev.kronos.sample
 
 import android.app.Application
@@ -6,10 +8,12 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import com.softartdev.kronos.*
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 class AndroidApp : Application() {
     companion object {
@@ -27,13 +31,14 @@ class AndroidApp : Application() {
 class AppActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent { App() }
     }
 }
 
 internal actual fun openUrl(url: String?) {
-    val uri = url?.let { Uri.parse(it) } ?: return
-    val intent = Intent().apply {
+    val uri: Uri = url?.let(Uri::parse) ?: return
+    val intent: Intent = Intent().apply {
         action = Intent.ACTION_VIEW
         data = uri
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

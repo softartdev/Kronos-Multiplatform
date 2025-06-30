@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 package com.softartdev.kronos
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDate
 import platform.Foundation.NSNumber
 import platform.Foundation.timeIntervalSince1970

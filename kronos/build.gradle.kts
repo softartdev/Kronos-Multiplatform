@@ -8,9 +8,9 @@ group = "io.github.softartdev"
 version = libs.versions.kronos.get()
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(libs.versions.jdk.get().toInt())
     jvm()
-    android {
+    androidTarget {
         publishLibraryVariants("release", "debug")
     }
     listOf(
@@ -29,7 +29,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(libs.kotlinx.datetime)
             }
         }
         val commonTest by getting {
@@ -77,13 +76,13 @@ kotlin {
 
 android {
     namespace = "com.softartdev.kronos"
-    compileSdk = 33
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 21
+        minSdk = libs.versions.minSdk.get().toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.jdk.get().toInt())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.jdk.get().toInt())
     }
 }
 

@@ -3,17 +3,17 @@
 ![Maven Central](https://img.shields.io/maven-central/v/io.github.softartdev/kronos)
 [![Build & Publish CI/CD](https://github.com/softartdev/Kronos-Multiplatform/actions/workflows/build_publish.yml/badge.svg)](https://github.com/softartdev/Kronos-Multiplatform/actions/workflows/build_publish.yml)
 
-Kotlin Multiplatform library for network time synchronization. It is an extension for the [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) library and supports the following platforms:
+Kotlin Multiplatform library for network time synchronization. It extends the [`kotlin.time`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/) API and supports the following platforms:
 - Android
 - iOS
 - Desktop JVM (MacOS, Linux, Windows)
 ## Usage
-### kotlinx-datetime Extension
-The library [extends the main `Clock` interface](https://github.com/softartdev/Kronos-Multiplatform/blob/main/kronos/src/commonMain/kotlin/com/softartdev/kronos/ClockExt.kt) of the kotlinx-library. You can use the [Clock.Network](https://github.com/softartdev/Kronos-Multiplatform/blob/main/kronos/src/commonMain/kotlin/com/softartdev/kronos/NetworkClock.kt) class to retrieve the current network time, similar to using the built-in [Clock.System](https://github.com/Kotlin/kotlinx-datetime/blob/master/core/common/src/Clock.kt) instance.
+### `kotlin.time` Extension
+The library [extends the main `Clock` interface](https://github.com/softartdev/Kronos-Multiplatform/blob/main/kronos/src/commonMain/kotlin/com/softartdev/kronos/ClockExt.kt) from the standard library. You can use the [`Clock.Network`](https://github.com/softartdev/Kronos-Multiplatform/blob/main/kronos/src/commonMain/kotlin/com/softartdev/kronos/NetworkClock.kt) class to retrieve the current network time, similar to using the built-in [`Clock.System`](https://github.com/JetBrains/kotlin/blob/master/libraries/stdlib/src/kotlin/time/Clock.kt#L60) instance.
 ```kotlin
-val networkTime: Instant = Clock.Network.now()
-val systemTime: Instant = Clock.System.now()
-val diff: Duration = networkTime - systemTime
+val networkTime: Instant = Clock.Network.now()  // 2025-06-30T13:42:43.712Z
+val systemTime: Instant = Clock.System.now()    // 2025-06-30T13:42:43.566455Z
+val diff: Duration = networkTime - systemTime   // 145.545ms
 ```
 ### Synchronization
 When running the application, it's necessary to synchronize the time with the network using the platform-specific code:

@@ -1,17 +1,20 @@
 [versions]
-kronos = "0.0.1"
+kronos = "0.0.2"
+compileSdk = "36"
+targetSdk = "36"
+minSdk = "21"
 lyft-kronos = "0.0.1-alpha11"
-kotlin = "1.8.20"
-agp = "8.0.1"
-compose = "1.4.0"
-androidx-appcompat = "1.6.1"
-androidx-activityCompose = "1.7.0"
-androidx-test = "1.5.0"
-compose-uitooling = "1.4.0"
-napier = "2.6.1"
-kotlinx-coroutines = "1.6.4"
-kotlinx-datetime = "0.4.0"
-swift-klib = "0.2.1"
+kotlin = "2.2.0"
+jdk = "17"
+agp = "8.11.0"
+compose = "1.8.2"
+androidx-appcompat = "1.7.1"
+androidx-activityCompose = "1.10.1"
+androidx-test = "1.6.1"
+compose-uitooling = "1.8.3"
+napier = "2.7.1"
+kotlinx-coroutines = "1.10.2"
+swift-klib = "0.6.4"
 
 [libraries]
 kronos = { module = "io.github.softartdev:kronos", version.ref = "kronos" }
@@ -25,11 +28,11 @@ napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
-kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -7,7 +9,8 @@ import com.softartdev.kronos.sample.App
 import com.softartdev.kronos.sync
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 fun main() {
     Napier.base(DebugAntilog())
