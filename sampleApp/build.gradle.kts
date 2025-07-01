@@ -16,6 +16,7 @@ kotlin {
     jvmToolchain(libs.versions.jdk.get().toInt())
     jvm("desktop")
     androidTarget()
+    wasmJs()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -62,6 +63,8 @@ kotlin {
                 implementation(compose.preview)
             }
         }
+        val wasmJsMain by getting
+        val wasmJsTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
