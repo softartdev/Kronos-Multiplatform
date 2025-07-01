@@ -7,6 +7,7 @@ Kotlin Multiplatform library for network time synchronization. It extends the [`
 - Android
 - iOS
 - Desktop JVM (MacOS, Linux, Windows)
+- Web
 ## Usage
 ### `kotlin.time` Extension
 The library [extends the main `Clock` interface](https://github.com/softartdev/Kronos-Multiplatform/blob/main/kronos/src/commonMain/kotlin/com/softartdev/kronos/ClockExt.kt) from the standard library. You can use the [`Clock.Network`](https://github.com/softartdev/Kronos-Multiplatform/blob/main/kronos/src/commonMain/kotlin/com/softartdev/kronos/NetworkClock.kt) class to retrieve the current network time, similar to using the built-in [`Clock.System`](https://github.com/JetBrains/kotlin/blob/master/libraries/stdlib/src/kotlin/time/Clock.kt#L60) instance.

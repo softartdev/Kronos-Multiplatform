@@ -10,6 +10,7 @@ version = libs.versions.kronos.get()
 kotlin {
     jvmToolchain(libs.versions.jdk.get().toInt())
     jvm()
+    wasmJs()
     androidTarget {
         publishLibraryVariants("release", "debug")
     }
@@ -53,6 +54,8 @@ kotlin {
                 implementation(libs.androidx.test)
             }
         }
+        val wasmJsMain by getting
+        val wasmJsTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
