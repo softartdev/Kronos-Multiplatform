@@ -53,6 +53,11 @@ kotlin {
                 implementation(libs.androidx.test)
             }
         }
+        val wasmJsMain by getting {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.core)
+            }
+        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
